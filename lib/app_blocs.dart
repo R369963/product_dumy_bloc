@@ -10,6 +10,8 @@ class UserBloc extends Bloc<UserEvent,UserState>{
        emit(UserLoadingState());
        try{
           final users = await userRepository?.getPrdts();
+          emit(UserLoadState(users));
+
        }catch(e){
           emit(UserErrorState(e.toString()));
        }

@@ -8,6 +8,7 @@ class UserRepository{
   Future<List<Prductlistmodel>> getPrdts() async{
     Response response =await get(Uri.parse(prdcturl));
     if(response.statusCode ==200){
+      print(response.body);
        final List result = jsonDecode(response.body);
        return result.map<Prductlistmodel>((i)=>Prductlistmodel.fromJson(i)).toList();
      // final List result = ;

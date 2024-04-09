@@ -10,7 +10,9 @@ class UserLoadingState extends UserState{
   List<Object> get props => [];
 }
 class UserLoadState extends UserState{
-     List<Prductlistmodel>? products;
+  UserLoadState(this.products);
+
+  List<Prductlistmodel>? products;
 
   @override
    List<Object?> get props =>  [products];
