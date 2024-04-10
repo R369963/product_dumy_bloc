@@ -32,48 +32,51 @@ class HomePage extends StatelessWidget {
   }
 
   Widget blocBody() {
-    return BlocBuilder<UserBloc, UserState>(
-      builder: (context, state) {
-        if (state is UserLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (state is UserErrorState) {
-          return const Center(child: Text("Error"));
-        }
-        if (state is UserLoadState) {
-          List<Prductlistmodel>? productList = state.products;
-          return ListView.builder(
-            itemCount: productList!.length,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                child: Card(
-                  color: Theme.of(context).primaryColor,
-                  child: ListTile(
-                    title: Text(
-                      '${productList[index].title}  ${productList[index].category}',
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    subtitle: Text(
-                      '${productList[index].description}',
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        productList[index].image.toString(),
+    return BlocProvider(
+      create: (context) => UserBloc(UserRepository())..add(LoadUserEvent()),
+      child: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          if (state is UserLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is UserErrorState) {
+            return const Center(child: Text("Error"));
+          }
+          if (state is UserLoadState) {
+            List<Prductlistmodel>? productList = state.products;
+            return ListView.builder(
+              itemCount: productList!.length,
+              itemBuilder: (_, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  child: Card(
+                    color: Theme.of(context).primaryColor,
+                    child: ListTile(
+                      title: Text(
+                        '${productList[index].title}  ${productList[index].category}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      subtitle: Text(
+                        '${productList[index].description}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          productList[index].image.toString(),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              );
-            },
-          );
-        }
+                );
+              },
+            );
+          }
 
-        return Container();
-      },
+          return Container();
+        },
+      ),
     );
   }
 }

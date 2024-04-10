@@ -1,19 +1,17 @@
 import 'dart:convert';
-
-import 'package:proife/productlistmodel.dart';
 import 'package:http/http.dart';
+ import 'package:proife/productlistmodel.dart';
 
-class UserRepository{
-  String prdcturl ="https://fakestoreapi.com/products";
-  Future<List<Prductlistmodel>> getPrdts() async{
-    Response response =await get(Uri.parse(prdcturl));
-    if(response.statusCode ==200){
+class UserRepository {
+  String prdcturl = "https://fakestoreapi.com/products";
+
+  Future<List<Prductlistmodel>> getPrdts() async {
+    Response response = await get(Uri.parse(prdcturl));
+    if (response.statusCode == 200) {
       print(response.body);
-       final List result = jsonDecode(response.body);
-       return result.map<Prductlistmodel>((i)=>Prductlistmodel.fromJson(i)).toList();
-     // final List result = ;
-
-    }else{
+      final List<dynamic> result = jsonDecode(response.body);
+      return result.map((item) => Prductlistmodel.fromJson(item)).toList();
+    } else {
       throw Exception('Failed to load data');
     }
   }

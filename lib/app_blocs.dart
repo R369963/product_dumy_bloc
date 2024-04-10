@@ -9,8 +9,15 @@ class UserBloc extends Bloc<UserEvent,UserState>{
     on<LoadUserEvent>((event,emit)async{
        emit(UserLoadingState());
        try{
-          final users = await userRepository?.getPrdts();
-          emit(UserLoadState(users));
+          final products = await userRepository?.getPrdts();
+          for (final product in products!) {
+             print(product.title);
+             print(product.price);
+             print(product.rating?.rate);
+             print(product.rating?.count);
+             print('---');
+          }
+          emit(UserLoadState(products));
 
        }catch(e){
           emit(UserErrorState(e.toString()));
