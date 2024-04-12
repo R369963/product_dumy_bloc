@@ -13,8 +13,8 @@ class UserBloc extends Bloc<UserEvent,UserState>{
           for (final product in products!) {
              print(product.title);
              print(product.price);
-             print(product.rating?.rate);
-             print(product.rating?.count);
+print(product.rating?.rate);
+print(product.rating?.count);
              print('---');
           }
           emit(UserLoadState(products));
