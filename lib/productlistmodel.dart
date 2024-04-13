@@ -1,11 +1,11 @@
 class Prductlistmodel {
   int? id;
   String? title;
-  double? price;
+  String? price;
   String? description;
   String? category;
   String? image;
-  //Rating? rating;
+  Rating? rating;
 
   Prductlistmodel(
       {this.id,
@@ -14,7 +14,7 @@ class Prductlistmodel {
         this.description,
         this.category,
         this.image,
-     //   this.rating
+       this.rating
       });
 
   Prductlistmodel.fromJson(Map<String, dynamic> json) {
@@ -24,8 +24,8 @@ class Prductlistmodel {
     description = json['description'];
     category = json['category'];
     image = json['image'];
-    // rating =
-    // json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
+    rating =
+    json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -36,15 +36,15 @@ class Prductlistmodel {
     data['description'] = this.description;
     data['category'] = this.category;
     data['image'] = this.image;
-    // if (this.rating != null) {
-    //   data['rating'] = this.rating!.toJson();
-    // }
+    if (this.rating != null) {
+      data['rating'] = this.rating!.toJson();
+    }
     return data;
   }
 }
 
 class Rating {
-  double? rate;
+  String? rate;
   int? count;
 
   Rating({this.rate, this.count});
