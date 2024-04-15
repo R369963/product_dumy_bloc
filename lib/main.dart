@@ -9,10 +9,12 @@ import 'package:proife/splash/splsh_states.dart';
 import 'app_blocs.dart';
 import 'app_events.dart';
 import 'app_states.dart';
+import 'widget/product_widget.dart';
 
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: SplashScreen(),
   ));
 }
@@ -39,7 +41,7 @@ Widget splashBody(){
              child: Center(
                 child: DateTime.now().hour > 11 && DateTime.now().hour < 15 ?Text("Good Afternoon",
                   style: Theme.of(context).textTheme.titleSmall!.merge(
-                      TextStyle(
+                     const TextStyle(
                           fontSize: 18,
                           fontStyle: FontStyle.italic,
                           color: Colors.redAccent
@@ -54,7 +56,7 @@ Widget splashBody(){
                   ),) :
                DateTime.now().hour > 20  ?Text("Good Night",
                  style: Theme.of(context).textTheme.titleSmall!.merge(
-                     TextStyle(
+                   const TextStyle(
                          fontSize: 18,
                          fontStyle: FontStyle.italic,
                          color: Colors.black45
@@ -88,7 +90,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('The BloC App')),
+      appBar: AppBar(title: const Text('Pickart')),
       body: MultiBlocProvider(
         providers: [
           BlocProvider<UserBloc>(
@@ -115,31 +117,16 @@ class HomePage extends StatelessWidget {
           }
           if (state is UserLoadState) {
             List<Prductlistmodel>? productList = state.products;
-            return ListView.builder(
-              itemCount: productList!.length,
-              itemBuilder: (_, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                  child: Card(
-                    color: Theme.of(context).primaryColor,
-                    child: ListTile(
-                      title: Text(
-                        '${productList[index].title}  ${productList[index].category}',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      subtitle: Text(
-                        '${productList[index].description}',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          productList[index].image.toString(),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
+            return Container(
+              height: 180,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: productList!.length,
+                itemBuilder: (_, index) {
+                  return ProductCard(prductlistmodel:
+                    productList.elementAt(index),);
+                  },
+              ),
             );
           }
 
