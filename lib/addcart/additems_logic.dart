@@ -1,13 +1,15 @@
  import 'package:proife/addcart/addcart_model.dart';
 
-class AddItemsCartsLogic {
-  List<AddItemCart> listCartItem =[];
+import '../productlistmodel.dart';
 
-  Future<List<AddItemCart>?> addItemsToCart(AddItemCart addItemCart)async{
+class AddItemsCartsLogic {
+  List<Prductlistmodel> listCartItem =[];
+
+  Future<List<Prductlistmodel>?> addItemsToCart(Prductlistmodel addItemCart)async{
     listCartItem.add(addItemCart);
     return listCartItem;
    }
-   Future<List<AddItemCart>?> removeItemToCart(AddItemCart addItemCart)async{
+   Future<List<Prductlistmodel>?> removeItemToCart(Prductlistmodel addItemCart)async{
     listCartItem.remove(addItemCart);
    }
  }

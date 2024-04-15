@@ -5,8 +5,10 @@ import 'package:proife/addcart/addcart_model.dart';
 import 'package:proife/addcart/addcart_states.dart';
 import 'package:proife/addcart/additems_logic.dart';
 
+import '../productlistmodel.dart';
+
 class AddCartBloc extends Bloc<AddCartEvent,AddCartState>{
-  AddItemCart? addItemCart;
+  Prductlistmodel? addItemCart;
   AddItemsCartsLogic? addItemsCartsLogic;
   AddCartBloc(this.addItemsCartsLogic): super(AddCartLoading()){
     on<AddCartEvent>((event,emit)async{
