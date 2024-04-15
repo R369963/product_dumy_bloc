@@ -28,6 +28,5 @@ class AddCartBloc extends Bloc<AddCartEvent,AddCartState>{
         print(e.toString());
       }
     });
-
   }
 }
