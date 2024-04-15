@@ -16,8 +16,7 @@ class UserBloc extends Bloc<UserEvent,UserState>{
              print('---');
           }
           emit(UserLoadState(products));
-
-       }catch(e){
+         }catch(e){
           emit(UserErrorState(e.toString()));
        }
     });
