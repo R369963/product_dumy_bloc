@@ -14,6 +14,9 @@ class AddCartBloc extends Bloc<AddCartEvent,AddCartState>{
       try{
        listCartItem.add(event.prductlistmodel!);
        emit(AddItemCartState(addToCartList:listCartItem ));
+       listCartItem.forEach((element) {
+         print(element.title);
+       });
       }catch(e){
         print(e.toString());
       }
@@ -24,6 +27,9 @@ class AddCartBloc extends Bloc<AddCartEvent,AddCartState>{
       try{
         listCartItem.remove(event.prductlistmodel);
        emit(RemoveItemCartState(removeToCart: listCartItem));
+        listCartItem.forEach((element) {
+          print(element.title);
+        });
       }catch(e){
         print(e.toString());
       }

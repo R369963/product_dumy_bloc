@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proife/addcart/addcart_events.dart';
 
 import 'package:proife/productlistmodel.dart';
+
+import '../addcart/addcart_bloc.dart';
+import '../addcart/addcart_states.dart';
 
 class ProductCard extends StatelessWidget {
   Prductlistmodel prductlistmodel;
@@ -68,7 +73,20 @@ class ProductCard extends StatelessWidget {
              ),
              Positioned(
                right: 2,
-               child: addCart ==true? const Icon(Icons.favorite_outline,color: Colors.black,):const  Icon(Icons.favorite,color: Colors.redAccent,),
+               child: addCart == false?
+               BlocProvider(
+                 create: (_) =>AddCartBloc(),
+                  child: BlocBuilder<AddCartBloc,AddCartState>(
+                       builder: (BuildContext context, AddCartState state) {
+                       return InkWell(
+                           onTap:  () {
+                             print(prductlistmodel);
+                             BlocProvider.of<AddCartBloc>(context).add(AddItemEvent(prductlistmodel));
+                           },
+                           child: const Icon(Icons.favorite_outline,color: Colors.black,));
+                     },
+                   ),
+               ):const  Icon(Icons.favorite,color: Colors.redAccent,),
              ),
            ],
         ),
