@@ -1,21 +1,19 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proife/addcart/addcart_events.dart';
-import 'package:proife/addcart/addcart_model.dart';
 import 'package:proife/addcart/addcart_states.dart';
 import 'package:proife/addcart/additems_logic.dart';
 
 import '../productlistmodel.dart';
 
 class AddCartBloc extends Bloc<AddCartEvent,AddCartState>{
-  Prductlistmodel? addItemCart;
-  AddItemsCartsLogic? addItemsCartsLogic;
-  AddCartBloc(this.addItemsCartsLogic): super(AddCartLoading()){
-    on<AddCartEvent>((event,emit)async{
+  List<Prductlistmodel> listCartItem =[];
+
+  AddCartBloc( ): super(AddCartLoading()) {
+    on<AddItemEvent>((event,emit)async{
       emit(AddCartLoading());
       try{
-        final getCartList = await addItemsCartsLogic!.addItemsToCart(addItemCart!);
-        emit(GetCartItems(getCartItems: getCartList!));
+       listCartItem.add(event.prductlistmodel!);
+       emit(AddItemCartState(addToCartList:listCartItem ));
       }catch(e){
         print(e.toString());
       }
@@ -24,8 +22,8 @@ class AddCartBloc extends Bloc<AddCartEvent,AddCartState>{
     on<RemoveItemEvent>((event,emit)async{
       emit(AddCartLoading());
       try{
-        final getCartList =  await addItemsCartsLogic!.removeItemToCart(addItemCart!);
-        emit(GetCartItems(getCartItems: getCartList!));
+        listCartItem.remove(event.prductlistmodel);
+       emit(RemoveItemCartState(removeToCart: listCartItem));
       }catch(e){
         print(e.toString());
       }

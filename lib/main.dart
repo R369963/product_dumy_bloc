@@ -123,7 +123,7 @@ class HomePage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: productList!.length,
                 itemBuilder: (_, index) {
-                  return ProductCard(prductlistmodel:
+                  return  ProductCard(prductlistmodel:
                     productList.elementAt(index),);
                   },
               ),

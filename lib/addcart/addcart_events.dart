@@ -3,7 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../productlistmodel.dart';
-import 'addcart_model.dart';
+
+
 
 @immutable
 abstract class AddCartEvent extends Equatable{
@@ -11,16 +12,16 @@ abstract class AddCartEvent extends Equatable{
 }
 
 class AddItemEvent extends AddCartEvent{
-  Prductlistmodel? addItem;
-    AddItemEvent(addItem);
+  Prductlistmodel? prductlistmodel;
+      AddItemEvent(prductlistmodel);
   @override
-   List<Object?> get props =>  [addItem];
+   List<Object?> get props =>  [prductlistmodel];
 
 }
 class RemoveItemEvent extends AddCartEvent{
-  Prductlistmodel? addItemCart;
-  RemoveItemEvent(addItem);
+  Prductlistmodel? prductlistmodel;
+  RemoveItemEvent(prductlistmodel);
   @override
-   List<Object?> get props => [addItemCart];
+   List<Object?> get props => [];
 
 }

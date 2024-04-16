@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:proife/addcart/addcart_model.dart';
 
 import '../productlistmodel.dart';
 
@@ -14,8 +13,8 @@ class AddCartLoading extends AddCartState{
 
 }
 class AddItemCartState extends AddCartState{
-  List<Prductlistmodel> addToCartList = [];
-
+  List<Prductlistmodel>? addToCartList ;
+  AddItemCartState({required this.addToCartList});
   @override
    List<Object?> get props =>  [addToCartList];
 }
