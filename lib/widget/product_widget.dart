@@ -73,20 +73,24 @@ class ProductCard extends StatelessWidget {
              ),
              Positioned(
                right: 2,
-               child: addCart == false?
+               child:
                BlocProvider(
-                 create: (_) =>AddCartBloc(),
+                 create: (_) =>AddCartBloc()..add( AddedItemCartLoadEvent()),
                   child: BlocBuilder<AddCartBloc,AddCartState>(
                        builder: (BuildContext context, AddCartState state) {
+                          if(state is AddItemCartState){
+                            print("${state.addToCartList!.first.title}");
+                          return   state.addToCartList!.contains(prductlistmodel.id)?  const Icon(Icons.favorite,color: Colors.redAccent,):
+                          Icon(Icons.favorite_outline,color: Colors.black,);
+                          }
                        return InkWell(
                            onTap:  () {
-
-                             BlocProvider.of<AddCartBloc>(context).add(AddItemEvent(prductlistmodel));
+                           BlocProvider.of<AddCartBloc>(context).add(AddItemEvent(prductlistmodel));
                            },
                            child: const Icon(Icons.favorite_outline,color: Colors.black,));
                      },
                    ),
-               ):const  Icon(Icons.favorite,color: Colors.redAccent,),
+               ),
              ),
            ],
         ),

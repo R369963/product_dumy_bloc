@@ -10,7 +10,12 @@ import '../productlistmodel.dart';
 abstract class AddCartEvent extends Equatable{
   const AddCartEvent();
 }
+class AddedItemCartLoadEvent extends AddCartEvent{
+  @override
+  // TODO: implement props
+  List<Object?> get props =>  [];
 
+}
 class AddItemEvent extends AddCartEvent{
   Prductlistmodel? prductlistmodel;
       AddItemEvent(this.prductlistmodel);
