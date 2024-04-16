@@ -80,7 +80,7 @@ class ProductCard extends StatelessWidget {
                        builder: (BuildContext context, AddCartState state) {
                        return InkWell(
                            onTap:  () {
-                             print(prductlistmodel);
+
                              BlocProvider.of<AddCartBloc>(context).add(AddItemEvent(prductlistmodel));
                            },
                            child: const Icon(Icons.favorite_outline,color: Colors.black,));

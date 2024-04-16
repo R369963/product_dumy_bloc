@@ -15,7 +15,7 @@ class AddCartBloc extends Bloc<AddCartEvent,AddCartState>{
        listCartItem.add(event.prductlistmodel!);
        emit(AddItemCartState(addToCartList:listCartItem ));
        listCartItem.forEach((element) {
-         print(element.title);
+         print(element.id);
        });
       }catch(e){
         print(e.toString());
