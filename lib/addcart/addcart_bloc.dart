@@ -1,12 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proife/addcart/addcart_events.dart';
 import 'package:proife/addcart/addcart_states.dart';
-import 'package:proife/addcart/additems_logic.dart';
+import 'package:proife/global.dart';
 
 import '../productlistmodel.dart';
 
 class AddCartBloc extends Bloc<AddCartEvent,AddCartState>{
-  List<Prductlistmodel> listCartItem =[];
 
   AddCartBloc( ): super(AddCartLoading()) {
     on<AddItemEvent>((event,emit)async{

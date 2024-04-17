@@ -13,6 +13,8 @@ import 'widget/product_widget.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: SplashScreen(),
