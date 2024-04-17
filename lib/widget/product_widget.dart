@@ -85,9 +85,7 @@ class ProductCard extends StatelessWidget {
                                .any((item) => item.id == prductlistmodel.id);
 
                            print("${state.addToCartList!.first.title}");
-                          // return   state.addToCartList!.contains(prductlistmodel.id)?  const Icon(Icons.favorite,color: Colors.redAccent,):
-                          // const Icon(Icons.favorite_outline,color: Colors.black,);
-                          }
+                         }
                          return InkWell(
                            onTap: () {
                              if (isAddedToCart) {
@@ -107,13 +105,7 @@ class ProductCard extends StatelessWidget {
                              color: isAddedToCart ? Colors.redAccent : Colors.black,
                            ),
                          );
-                      /* return InkWell(
-                           onTap:  () {
-                           BlocProvider.of<AddCartBloc>(context).add(AddItemEvent(prductlistmodel));
-                           },
-                        child: const Icon(Icons.favorite_outline,color: Colors.black,));
-                   */
-                       },
+                      },
                    ),
                ),
              ),
