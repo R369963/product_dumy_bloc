@@ -78,17 +78,42 @@ class ProductCard extends StatelessWidget {
                  create: (_) =>AddCartBloc()..add( AddedItemCartLoadEvent()),
                   child: BlocBuilder<AddCartBloc,AddCartState>(
                        builder: (BuildContext context, AddCartState state) {
-                          if(state is AddItemCartState){
-                            print("${state.addToCartList!.first.title}");
-                          return   state.addToCartList!.contains(prductlistmodel.id)?  const Icon(Icons.favorite,color: Colors.redAccent,):
-                          Icon(Icons.favorite_outline,color: Colors.black,);
+                         bool isAddedToCart = false;
+
+                         if(state is AddItemCartState){
+                           isAddedToCart = state.addToCartList!
+                               .any((item) => item.id == prductlistmodel.id);
+
+                           print("${state.addToCartList!.first.title}");
+                          // return   state.addToCartList!.contains(prductlistmodel.id)?  const Icon(Icons.favorite,color: Colors.redAccent,):
+                          // const Icon(Icons.favorite_outline,color: Colors.black,);
                           }
-                       return InkWell(
+                         return InkWell(
+                           onTap: () {
+                             if (isAddedToCart) {
+                               // If already added to cart, remove from cart
+                               BlocProvider.of<AddCartBloc>(context)
+                                   .add(RemoveItemEvent(prductlistmodel));
+                             } else {
+                               // If not added to cart, add to cart
+                               BlocProvider.of<AddCartBloc>(context)
+                                   .add(AddItemEvent(prductlistmodel));
+                             }
+                           },
+                           child: Icon(
+                             isAddedToCart
+                                 ? Icons.favorite // If added to cart, filled heart
+                                 : Icons.favorite_outline, // If not, outlined heart
+                             color: isAddedToCart ? Colors.redAccent : Colors.black,
+                           ),
+                         );
+                      /* return InkWell(
                            onTap:  () {
                            BlocProvider.of<AddCartBloc>(context).add(AddItemEvent(prductlistmodel));
                            },
-                           child: const Icon(Icons.favorite_outline,color: Colors.black,));
-                     },
+                        child: const Icon(Icons.favorite_outline,color: Colors.black,));
+                   */
+                       },
                    ),
                ),
              ),
