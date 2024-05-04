@@ -10,20 +10,30 @@ class CartDataBase{
       join(path,'cart.db'),
       version: 1,
       onCreate: (Database db, int version)async{
-         await db.execute("CREATE TABLE cart( id INTEGER PRIMARY KEY, title TEXT NOT NULL)"
+         await db.execute("CREATE TABLE cart(id INTEGER PRIMARY KEY, title TEXT NOT NULL,price TEXT NOT NULL,description TEXT NOT NULL,category TEXT NOT NULL,image TEXT NOT NULL)"
          );
       },
     );
   }
   Future<int> insertCart(
-      List<Prductlistmodel> products
+      Prductlistmodel products
       )async{
+    var value ={
+      "id":products.id,
+      "title":products.title,
+      "price":products.price,
+      "description":products.description,
+      "category":products.category,
+      "image":products.image
+    };
     int result =0;
-    final Database? db = await initializeDB();
-    for(var product  in products){
-      result =await db!.insert('cart',  product.toJson(),
-      conflictAlgorithm: ConflictAlgorithm.replace);
-    }
+   try{
+     final Database? db = await initializeDB();
+     result =await db!.insert('cart', value ,
+         conflictAlgorithm: ConflictAlgorithm.replace);
+   }catch(e){
+     print("${e} data saved");
+   }
   return result;
   }
 Future<List<Prductlistmodel>?> retriveCart()async{

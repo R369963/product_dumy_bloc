@@ -8,10 +8,11 @@ import 'package:proife/productlistmodel.dart';
 
 import '../addcart/addcart_bloc.dart';
 import '../addcart/addcart_states.dart';
+import '../db/cart_db.dart';
 
 class ProductCard extends StatelessWidget {
   Prductlistmodel prductlistmodel;
-
+  CartDataBase? cartDataBase =CartDataBase();
   ProductCard({required this.prductlistmodel});
 
   @override
@@ -87,9 +88,18 @@ class ProductCard extends StatelessWidget {
                            print("${state.addToCartList!.first.title}");
                          }
                          return InkWell(
-                           onTap: () {
+                           onTap: ()async {
                              if (isAddedToCart) {
                                // If already added to cart, remove from cart
+                             await  cartDataBase!.insertCart(prductlistmodel).then(
+                                 (value) {
+                                   if(value==1){
+                                     print("${value} saved data");
+                                   }else{
+                                     print("${value} not  saved data");
+                                   }
+                                 },
+                               );
                                BlocProvider.of<AddCartBloc>(context)
                                    .add(RemoveItemEvent(prductlistmodel));
                              } else {
