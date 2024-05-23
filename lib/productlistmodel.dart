@@ -1,4 +1,5 @@
 class Prductlistmodel {
+
   int? id;
   String? title;
   String? price;

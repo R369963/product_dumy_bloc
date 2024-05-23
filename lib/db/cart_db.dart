@@ -10,7 +10,7 @@ class CartDataBase{
       join(path,'cart.db'),
       version: 1,
       onCreate: (Database db, int version)async{
-         await db.execute("CREATE TABLE cart(id INTEGER PRIMARY KEY, title TEXT NOT NULL,price TEXT NOT NULL,description TEXT NOT NULL,category TEXT NOT NULL,image TEXT NOT NULL)"
+         await db.execute("CREATE TABLE cart(id INTEGER PRIMARY KEY, title TEXT NOT NULL,price TEXT NOT NULL,description TEXT NOT NULL,category TEXT NOT NULL,image TEXT NOT NULL,fav INTEGER NOT NULL DEFAULT 0)"
          );
       },
     );
@@ -24,7 +24,8 @@ class CartDataBase{
       "price":products.price,
       "description":products.description,
       "category":products.category,
-      "image":products.image
+      "image":products.image,
+      "fav":0
     };
     int result =0;
    try{
@@ -32,8 +33,13 @@ class CartDataBase{
      result =await db!.insert('cart', value ,
          conflictAlgorithm: ConflictAlgorithm.replace);
    }catch(e){
-     print("${e} data saved");
+     print("$e ERROR DATA BASE");
    }
+    if(result==0){
+      print("Not Saved$result");
+    }else{
+      print("Saves$result");
+    }
   return result;
   }
 Future<List<Prductlistmodel>?> retriveCart()async{

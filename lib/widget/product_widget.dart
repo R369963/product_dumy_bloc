@@ -25,8 +25,7 @@ class ProductCard extends StatelessWidget {
         width: 130,
         child: Stack(
            children: [
-
-             Positioned(
+               Positioned(
 
                child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,15 +90,7 @@ class ProductCard extends StatelessWidget {
                            onTap: ()async {
                              if (isAddedToCart) {
                                // If already added to cart, remove from cart
-                             await  cartDataBase!.insertCart(prductlistmodel).then(
-                                 (value) {
-                                   if(value==1){
-                                     print("${value} saved data");
-                                   }else{
-                                     print("${value} not  saved data");
-                                   }
-                                 },
-                               );
+
                                BlocProvider.of<AddCartBloc>(context)
                                    .add(RemoveItemEvent(prductlistmodel));
                              } else {
