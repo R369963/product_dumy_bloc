@@ -81,10 +81,10 @@ class ProductCard extends StatelessWidget {
                          bool isAddedToCart = false;
 
                          if(state is AddItemCartState){
+                           //isAddedToCart =  prductlistmodel.fav ==1 ?true:false;
                            isAddedToCart = state.addToCartList!
                                .any((item) => item.id == prductlistmodel.id);
-
-                           print("${state.addToCartList!.first.title}");
+                               print("${state.addToCartList!.first.title}");
                          }
                          return InkWell(
                            onTap: ()async {

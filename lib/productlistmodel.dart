@@ -6,6 +6,7 @@ class Prductlistmodel {
   String? description;
   String? category;
   String? image;
+  int? fav;
   Rating? rating;
 
   Prductlistmodel(
@@ -15,6 +16,7 @@ class Prductlistmodel {
         this.description,
         this.category,
         this.image,
+        this.fav,
        this.rating
       });
 
@@ -25,6 +27,7 @@ class Prductlistmodel {
     description = json['description'];
     category = json['category'];
     image = json['image'];
+    fav = json['fav'];
     rating =
     json['rating'] != null ?   Rating.fromJson(json['rating']) : null;
   }
@@ -40,6 +43,7 @@ class Prductlistmodel {
     if (this.rating != null) {
       data['rating'] = this.rating!.toJson();
     }
+    data['fav'] = this.fav;
     return data;
   }
 

@@ -15,7 +15,7 @@ class UserBloc extends Bloc<UserEvent,UserState>{
        try{
           final products = await userRepository?.getPrdts();
           for (final product in products!) {
-           await  dbCart.insertCart(product);
+           await dbCart.insertCart(product);
           }
           final getLoad = await dbCart.retriveCart();
           emit(UserLoadState(getLoad));

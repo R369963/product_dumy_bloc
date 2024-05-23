@@ -32,6 +32,7 @@ class CartDataBase{
      final Database? db = await initializeDB();
      result =await db!.insert('cart', value ,
          conflictAlgorithm: ConflictAlgorithm.replace);
+
    }catch(e){
      print("$e ERROR DATA BASE");
    }
@@ -47,6 +48,25 @@ Future<List<Prductlistmodel>?> retriveCart()async{
     final List<Map<String, Object?>> queryResult =await db!.query('cart');
     return queryResult.map((e)=> Prductlistmodel.fromJson(e)).toList();
 }
+Future<void> update(Prductlistmodel products)async{
+  var value ={
+    "id":products.id,
+    "title":products.title,
+    "price":products.price,
+    "description":products.description,
+    "category":products.category,
+    "image":products.image,
+    "fav":1
+  };
+  int result =0;
+    try{
+      final Database? db = await initializeDB();
+      result = await db!.update('cart', value,where: "id = ?", whereArgs: [products.id]);
+    }catch(e){
+      print("$e Update ERRoR");
+    }
+    print("$result update");
+  }
 Future<void> deleteCart(int id)async{
     final db =  await initializeDB();
     await db!.delete('cart',where: "id = ?",
