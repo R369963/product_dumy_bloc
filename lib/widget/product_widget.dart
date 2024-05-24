@@ -17,6 +17,9 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   // bool isAddedToCart = false;
+    bool  isAddedToCart =  prductlistmodel.fav ==1 ?true:false;
+
     bool addCart = false;
     return Card(
       shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -58,7 +61,7 @@ class ProductCard extends StatelessWidget {
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 5),
                      child: Text(
-                       "\u{20B9} ${prductlistmodel.price}",
+                       "\u{20B9} ${prductlistmodel.fav}",
                        style: Theme.of(context).textTheme.titleSmall!.merge(
                          TextStyle(
                              fontSize: 12,
@@ -78,24 +81,19 @@ class ProductCard extends StatelessWidget {
                  create: (_) =>AddCartBloc()..add( AddedItemCartLoadEvent()),
                   child: BlocBuilder<AddCartBloc,AddCartState>(
                        builder: (BuildContext context, AddCartState state) {
-                         bool isAddedToCart = false;
 
                          if(state is AddItemCartState){
-                           //isAddedToCart =  prductlistmodel.fav ==1 ?true:false;
                            isAddedToCart = state.addToCartList!
-                               .any((item) => item.id == prductlistmodel.id);
-                               print("${state.addToCartList!.first.title}");
+                               .any((item) => item.fav ==1);
+                               print(" Tap addItemCartState");
                          }
-                         return InkWell(
+                          return InkWell(
                            onTap: ()async {
                              if (isAddedToCart) {
-                               // If already added to cart, remove from cart
-
-                               BlocProvider.of<AddCartBloc>(context)
+                                BlocProvider.of<AddCartBloc>(context)
                                    .add(RemoveItemEvent(prductlistmodel));
                              } else {
-                               // If not added to cart, add to cart
-                               BlocProvider.of<AddCartBloc>(context)
+                                BlocProvider.of<AddCartBloc>(context)
                                    .add(AddItemEvent(prductlistmodel));
                              }
                            },

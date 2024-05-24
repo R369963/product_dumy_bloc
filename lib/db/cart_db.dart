@@ -48,7 +48,7 @@ Future<List<Prductlistmodel>?> retriveCart()async{
     final List<Map<String, Object?>> queryResult =await db!.query('cart');
     return queryResult.map((e)=> Prductlistmodel.fromJson(e)).toList();
 }
-Future<void> update(Prductlistmodel products)async{
+Future<List<Prductlistmodel>?> update(Prductlistmodel products,int fav)async{
   var value ={
     "id":products.id,
     "title":products.title,
@@ -56,16 +56,19 @@ Future<void> update(Prductlistmodel products)async{
     "description":products.description,
     "category":products.category,
     "image":products.image,
-    "fav":1
+    "fav":fav
   };
   int result =0;
-    try{
-      final Database? db = await initializeDB();
+  Database? db;
+  try{
+     db = await initializeDB();
       result = await db!.update('cart', value,where: "id = ?", whereArgs: [products.id]);
     }catch(e){
       print("$e Update ERRoR");
     }
     print("$result update");
+  final List<Map<String, Object?>> queryResult =await db!.query('cart');
+  return queryResult.map((e)=> Prductlistmodel.fromJson(e)).toList();
   }
 Future<void> deleteCart(int id)async{
     final db =  await initializeDB();
